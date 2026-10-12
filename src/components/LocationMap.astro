@@ -1,0 +1,126 @@
+---
+import { TALLER_DATA } from '../data/taller';
+import Icon from './Icon.astro';
+
+const { empresa, horarios } = TALLER_DATA;
+---
+
+<section class="w-full bg-[#F5F3EE] text-[#111315] py-20 px-4 sm:px-6 lg:px-8 border-b-4 border-[#111315]" id="onde-estamos">
+  <div class="max-w-7xl mx-auto space-y-12">
+    <!-- Cabeçalho -->
+    <div class="flex items-center gap-4 border-b-4 border-[#111315] pb-6">
+      <span class="font-section-number text-section-number text-[#111315] leading-none select-none">06</span>
+      <div>
+        <span class="font-label-code text-xs uppercase bg-[#111315] text-[#FFC400] px-2 py-0.5 tracking-widest inline-block font-bold">
+          [COORDENADAS GEOGRÁFICAS]
+        </span>
+        <h2 class="font-headline-lg text-headline-lg uppercase font-black text-[#111315] tracking-tight mt-1">
+          ONDE ESTAMOS // BASE FÍSICA NA ENSEADA
+        </h2>
+      </div>
+    </div>
+
+    <!-- Grid de Informações de Localização e Mapa -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <!-- Bloco de Informações & Horários (5 Colunas) -->
+      <div class="lg:col-span-5 bg-[#FFFFFF] border-2 border-[#111315] p-6 sm:p-8 flex flex-col justify-between shadow-[6px_6px_0px_0px_#111315]">
+        <div class="space-y-6">
+          <div>
+            <span class="font-label-code text-xs text-[#111315] font-bold block uppercase">[SEDE OPERACIONAL]</span>
+            <h3 class="font-headline-sm text-headline-sm uppercase text-[#111315] font-black">
+              {empresa.razaoSocial}
+            </h3>
+            <p class="font-body-md text-body-md text-[#474744] mt-2">
+              {empresa.rua || empresa.enderecoLinha1}<br />
+              Bairro {empresa.bairro}, {empresa.cidade} - {empresa.estado}<br />
+              CEP {empresa.cep}
+            </p>
+          </div>
+
+          <!-- Tabela de Horários por Dia da Semana -->
+          <div class="border-2 border-[#111315] p-4 bg-[#F5F3EE]">
+            <span class="font-label-code text-xs text-[#111315] font-bold uppercase block border-b border-[#111315]/20 pb-2 mb-3">
+              HORÁRIOS DE EXPEDIENTE PRESENCIAL:
+            </span>
+            <ul class="space-y-1.5 font-label-code text-xs text-[#111315]">
+              {horarios.map((h) => (
+                <li class={`flex justify-between border-b border-[#111315]/10 pb-1 ${!h.aberto ? 'text-[#5a544b]' : ''}`}>
+                  <span>{h.dia}:</span>
+                  <span class={`font-bold ${h.diaSemana === 6 ? 'text-[#FFC400] bg-[#111315] px-1' : ''}`}>
+                    {h.aberto ? `${h.abertura} – ${h.fechamento}` : 'Fechado'}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Botão de Rotas -->
+        <div class="pt-6">
+          <a
+            class="w-full bg-[#111315] text-[#FFC400] font-label-action text-label-action uppercase py-4 px-6 border-2 border-[#111315] hover:bg-[#FFC400] hover:text-[#111315] transition-colors flex items-center justify-center gap-2 text-center font-bold shadow-[3px_3px_0px_0px_#111315]"
+            href={empresa.googleMapsUrl}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Icon name="directions" class="w-5 h-5" />
+            <span>COMO CHEGAR VIA GOOGLE MAPS / WAZE</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mapa Esquemático Interativo / Localização (7 Colunas) -->
+      <div class="lg:col-span-7 bg-[#FFFFFF] border-2 border-[#111315] p-2 shadow-[6px_6px_0px_0px_#111315] flex flex-col">
+        <div class="flex items-center justify-between bg-[#111315] text-[#FFC400] px-3 py-1.5 font-label-code text-xs font-bold mb-2">
+          <span>{empresa.coordenadasTexto}</span>
+          <span class="text-white">ENSEADA // GUARUJÁ-SP</span>
+        </div>
+
+        <div
+          id="map-container"
+          class="w-full h-full min-h-[360px] bg-cover bg-center border border-[#111315] relative flex flex-col justify-between p-4 cursor-pointer group"
+          style="background-image: url('/fotos/mapa-estatico.webp');"
+          data-embed-url={empresa.googleMapsEmbedUrl}
+          title="Clique para carregar o mapa interativo do Google Maps"
+        >
+          <!-- Botão Chamativo de Ativação do Mapa -->
+          <div class="self-end bg-[#111315] text-[#FFC400] border-2 border-[#FFC400] px-3 py-1.5 font-label-code text-xs font-bold flex items-center gap-2 group-hover:bg-[#FFC400] group-hover:text-[#111315] transition-colors shadow-md">
+            <Icon name="pin_drop" class="w-4 h-4" />
+            <span>CLIQUE PARA ATIVAR MAPA INTERATIVO</span>
+          </div>
+
+          <!-- Marcador Oficial -->
+          <div class="bg-[#111315]/95 text-white p-3 border-2 border-[#FFC400] max-w-sm">
+            <span class="font-label-code text-[10px] text-[#FFC400] block uppercase font-bold">[MARCADOR OFICIAL]</span>
+            <p class="font-headline-sm text-sm uppercase text-white font-bold leading-tight">GUARUJA TEC - BASE ENSEADA</p>
+            <p class="font-body-sm text-xs text-secondary mt-1">Acesso rápido pelas avenidas Dom Pedro I e Atlântica.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const mapContainer = document.getElementById('map-container');
+  if (mapContainer) {
+    const embedUrl = mapContainer.getAttribute('data-embed-url');
+    mapContainer.addEventListener('click', () => {
+      if (embedUrl && !mapContainer.querySelector('iframe')) {
+        mapContainer.innerHTML = `
+          <iframe
+            src="${embedUrl}"
+            width="100%"
+            height="100%"
+            style="border:0; min-height: 360px;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Google Maps - Guaruja Tec"
+          ></iframe>
+        `;
+        mapContainer.classList.remove('cursor-pointer');
+      }
+    });
+  }
+</script>

@@ -1,0 +1,83 @@
+---
+import { TALLER_DATA } from '../data/taller';
+import Icon from './Icon.astro';
+
+const { servicos } = TALLER_DATA;
+---
+
+<section class="w-full bg-[#F5F3EE] text-[#111315] py-20 px-4 sm:px-6 lg:px-8 border-b-4 border-[#111315]" id="servicos">
+  <div class="max-w-7xl mx-auto space-y-12">
+    <!-- Cabeçalho com Número Gigante -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-4 border-[#111315] pb-8">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <span class="font-section-number text-section-number text-[#111315] leading-none select-none">01</span>
+          <div class="flex flex-col">
+            <span class="font-label-code text-xs uppercase bg-[#111315] text-[#FFC400] px-2 py-0.5 tracking-widest inline-block self-start font-bold">
+              CATÁLOGO DE EXECUÇÃO TÉCNICA
+            </span>
+            <h2 class="font-headline-lg text-headline-lg uppercase font-black text-[#111315] tracking-tight mt-1">
+              SERVIÇOS TÉCNICOS DE MARKETING E AUTOMAÇÃO
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div class="bg-[#FFFFFF] p-3 border-2 border-[#111315] shadow-[4px_4px_0px_0px_#111315] max-w-md">
+        <span class="font-label-code text-[11px] block uppercase text-[#111315] font-bold">DIRETRIZ DE FATURAMENTO:</span>
+        <p class="font-body-sm text-body-sm text-[#474744]">
+          Tabela de serviços e valores mediante análise prévia. Transparência técnica absoluta antes do início.
+        </p>
+      </div>
+    </div>
+
+    <!-- Grade com 8 Cartões Industriais Estruturados -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {servicos.map((servico) => (
+        <div class="bg-[#FFFFFF] border-2 border-[#111315] p-5 flex flex-col justify-between shadow-[4px_4px_0px_0px_#111315] hover:-translate-y-1 transition-transform group">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between border-b border-[#111315]/20 pb-2">
+              <span class="font-label-code text-xs text-[#111315] font-bold">{servico.codigo}</span>
+              <Icon name={servico.icone} class="w-5 h-5 text-[#111315]" />
+            </div>
+            <h3 class="font-headline-sm text-headline-sm uppercase font-bold text-[#111315] leading-snug">
+              {servico.titulo}
+            </h3>
+            <p class="font-body-sm text-body-sm text-[#474744]">
+              {servico.descricao}
+            </p>
+          </div>
+
+          <div class="pt-4 mt-4 border-t-2 border-[#111315] bg-[#F5F3EE] p-3 -mx-5 -mb-5 space-y-3">
+            <div>
+              <div class="font-label-code text-xs text-[#111315] font-bold">{servico.preco}</div>
+              <div class="font-label-code text-[11px] text-[#474744] uppercase">Prazo: {servico.prazo}</div>
+            </div>
+
+            <a
+              href="#agendamento"
+              data-service-select={servico.titulo}
+              class="w-full bg-[#111315] text-[#FFC400] font-label-action text-xs uppercase py-2 px-3 border border-[#111315] hover:bg-[#FFC400] hover:text-[#111315] transition-colors flex items-center justify-center gap-1.5 font-bold shadow-[2px_2px_0px_0px_#111315] active:translate-x-0.5 active:translate-y-0.5"
+            >
+              <span>AGENDAR HORÁRIO</span>
+              <Icon name="arrow_forward" class="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Rodapé de Ação Rápida da Seção -->
+    <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t-2 border-[#111315]">
+      <span class="font-label-code text-xs text-[#111315] font-bold">
+        [TODOS OS SERVIÇOS INCLUEM NOTA FISCAL E DOCUMENTAÇÃO TÉCNICA]
+      </span>
+      <a
+        class="bg-[#111315] text-[#FFC400] font-label-action text-label-action uppercase px-6 py-3 border-2 border-[#111315] hover:bg-[#FFC400] hover:text-[#111315] transition-colors flex items-center gap-2 shadow-[3px_3px_0px_0px_#111315]"
+        href="#agendamento"
+      >
+        <span>SOLICITAR ORÇAMENTO DE SERVIÇO</span>
+        <Icon name="arrow_forward" class="w-5 h-5" />
+      </a>
+    </div>
+  </div>
+</section>

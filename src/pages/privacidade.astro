@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileStickyBar from '../components/MobileStickyBar.astro';
+import { TALLER_DATA } from '../data/taller';
+
+const { empresa } = TALLER_DATA;
+---
+
+<Layout title={`Política de Privacidade // ${empresa.nome}${empresa.sufixo}`} canonicalPath="/privacidade">
+  <Header />
+
+  <main class="w-full pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto flex-1">
+    <div class="border-2 border-primary-container bg-surface-container p-4 mb-8">
+      <span class="font-label-code text-xs uppercase text-primary-container font-bold block mb-1">
+        [DOCUMENTO PROVISÓRIO - SUJEITO A REVISÃO JURÍDICA LOCAL]
+      </span>
+      <p class="font-body-sm text-xs text-secondary">
+        Política de privacidade provisória com diretrizes em conformidade com a LGPD (Lei Geral de Proteção de Dados - Lei nº 13.709/2018).
+      </p>
+    </div>
+
+    <div class="space-y-6 bg-surface-container-low border-2 border-outline-variant p-6 sm:p-8">
+      <h1 class="font-headline-lg text-headline-lg uppercase text-on-surface font-bold border-b-2 border-outline-variant pb-4">
+        Política de Privacidade
+      </h1>
+
+      <div class="space-y-4 font-body-md text-secondary leading-relaxed">
+        <h2 class="font-headline-sm text-xl uppercase text-on-surface font-bold">1. Princípio de Minimização de Dados</h2>
+        <p>
+          A {empresa.razaoSocial} respeita rigorosamente a sua privacidade. Este website <strong>não armazena dados em banco de dados</strong>, não possui cadastro de contas e não coleta informações em segundo plano sem a sua ação voluntária.
+        </p>
+
+        <h2 class="font-headline-sm text-xl uppercase text-on-surface font-bold pt-4">2. Formulário de Diagnóstico Técnico</h2>
+        <p>
+          As informações preenchidas no formulário "Agende seu Diagnóstico" (nome, telefone, link do site e observações) <strong>não são transmitidas para nenhum servidor interno nem compartilhadas com terceiros</strong>. O formulário opera exclusivamente no seu navegador (client-side), compilando os dados em uma mensagem formatada que é aberta diretamente no aplicativo do WhatsApp caso você decida enviá-la.
+        </p>
+
+        <h2 class="font-headline-sm text-xl uppercase text-on-surface font-bold pt-4">3. Ausência de Scripts de Terceiros e Rastreamento</h2>
+        <p>
+          Este site não utiliza Google Analytics, pixels de remarketing (Facebook/Meta), ou ferramentas invasivas de rastreamento comportamental de usuários.
+        </p>
+
+        <h2 class="font-headline-sm text-xl uppercase text-on-surface font-bold pt-4">4. Contato do Encarregado de Dados (DPO)</h2>
+        <p>
+          Para dúvidas, correções ou solicitações relativas à privacidade, entre em contato através do e-mail: <strong class="text-on-surface">{empresa.email}</strong> ou pelo telefone <strong class="text-on-surface">{empresa.telefoneFormatado}</strong>.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+  <MobileStickyBar />
+</Layout>

@@ -1,0 +1,28 @@
+---
+import { TALLER_DATA } from '../data/taller';
+import Icon from './Icon.astro';
+
+const { empresa } = TALLER_DATA;
+---
+
+<div class="w-full bg-surface-container-lowest text-on-surface py-2.5 px-4 sm:px-8 border-b-2 border-outline-variant flex flex-wrap items-center justify-between gap-3 font-label-code text-xs">
+  <div class="flex items-center gap-3">
+    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-primary-container text-on-primary-fixed uppercase font-bold tracking-wider">
+      <span class="w-2 h-2 rounded-none bg-background"></span>
+      SISTEMA ATIVO
+    </span>
+    <span class="text-secondary font-bold tracking-wide">
+      ATENDIMENTO DIRETO GUARUJÁ: <a class="text-primary-container underline hover:text-white" href={empresa.telefoneLink}>{empresa.telefoneFormatado}</a>
+    </span>
+  </div>
+  <div class="flex items-center gap-4 text-on-surface-variant">
+    <span class="hidden sm:inline-flex items-center gap-1.5">
+      <Icon name="timer" class="w-3.5 h-3.5 text-primary-container" />
+      RESPOSTA MÉDIA: <strong class="text-on-surface">{empresa.tempoMedioResposta}</strong>
+    </span>
+    <span class="inline-flex items-center gap-1.5 text-primary-container" data-status-container>
+      <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" data-status-ping></span>
+      <span class="font-bold" data-status-text>ABERTO AGORA ATÉ ÀS 18:00</span>
+    </span>
+  </div>
+</div>

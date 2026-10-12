@@ -1,0 +1,32 @@
+---
+import { TALLER_DATA } from '../data/taller';
+import Icon from './Icon.astro';
+
+const { empresa } = TALLER_DATA;
+const whatsappMobileUrl = `https://wa.me/${empresa.whatsappNumero}?text=${encodeURIComponent(empresa.whatsappTextoPadrao)}`;
+---
+
+<nav
+  class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-surface-container-lowest border-t-2 border-outline-variant shadow-[0_-4px_16px_rgba(0,0,0,0.6)]"
+  aria-label="Ações Rápidas no Celular"
+>
+  <div class="h-16 px-4 grid grid-cols-2 gap-3 items-center">
+    <a
+      class="h-11 flex items-center justify-center gap-2 bg-surface-container-high text-on-surface hover:text-primary-container active:scale-[0.98] transition-all border border-outline-variant font-label-action text-xs uppercase tracking-wide font-bold"
+      href={empresa.telefoneLink}
+    >
+      <Icon name="call" class="w-4 h-4 text-primary-container" />
+      <span>LIGAR AGORA</span>
+    </a>
+
+    <a
+      class="h-11 flex items-center justify-center gap-2 bg-primary-container text-on-primary-fixed hover:bg-primary active:scale-[0.98] transition-all border border-background shadow-[2px_2px_0px_0px_#000000] font-label-action text-xs uppercase tracking-wide font-bold"
+      href={whatsappMobileUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Icon name="chat" class="w-4 h-4 text-on-primary-fixed" />
+      <span>WHATSAPP</span>
+    </a>
+  </div>
+</nav>

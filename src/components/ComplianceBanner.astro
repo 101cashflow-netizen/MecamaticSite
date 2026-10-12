@@ -1,0 +1,29 @@
+---
+import { TALLER_DATA } from '../data/taller';
+import Icon from './Icon.astro';
+
+const { empresa } = TALLER_DATA;
+---
+
+<section class="w-full bg-surface-container-lowest py-8 px-4 sm:px-6 lg:px-8 border-t-2 border-outline-variant">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 font-label-code text-xs text-secondary">
+    <div class="space-y-1 text-center md:text-left">
+      <div class="font-bold text-on-surface">{empresa.razaoSocial}</div>
+      <div>CNPJ: {empresa.cnpj} // INSCRIÇÃO MUNICIPAL: {empresa.inscricaoMunicipal}</div>
+      <div>ENDEREÇO FISCAL: {empresa.enderecoLinha1.toUpperCase()} - {empresa.bairro.toUpperCase()} - CEP {empresa.cep}</div>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-surface-container border border-outline-variant text-primary-container font-bold">
+        <Icon name="shield" class="w-4 h-4" />
+        INFRAESTRUTURA VERIFICADA
+      </span>
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-surface-container border border-outline-variant text-on-surface font-bold">
+        <Icon name="lock" class="w-4 h-4" />
+        CONEXÃO SEGURA SSL 256-BIT
+      </span>
+      <a class="text-primary-container hover:underline font-bold" href={empresa.telefoneLink}>
+        SUPORTE: {empresa.telefoneFormatado}
+      </a>
+    </div>
+  </div>
+</section>

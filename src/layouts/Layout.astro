@@ -1,0 +1,193 @@
+---
+import '../styles/global.css';
+import { TALLER_DATA } from '../data/taller';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+}
+
+const { empresa, horarios } = TALLER_DATA;
+const {
+  title = `${empresa.nome}${empresa.sufixo} // Marketing Digital e Automação no Guarujá-SP`,
+  description = empresa.descricaoCompleta,
+  canonicalPath = '',
+} = Astro.props;
+
+const canonicalUrl = `${empresa.dominio}${canonicalPath}`;
+
+// Montagem do JSON-LD Schema.org estruturado
+const openingHoursSpec = horarios.map((h) => ({
+  "@type": "OpeningHoursSpecification",
+  "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][h.diaSemana],
+  "opens": h.aberto ? h.abertura : "00:00",
+  "closes": h.aberto ? h.fechamento : "00:00"
+}));
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": empresa.schemaType || "LocalBusiness",
+  "name": `${empresa.nome} ${empresa.sufixo} Soluções Digitais`,
+  "image": `${empresa.dominio}/fotos/hero-bancada.webp`,
+  "logo": `${empresa.dominio}/fotos/logo.png`,
+  "telephone": `+${empresa.telefoneRaw}`,
+  "url": empresa.dominio,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": empresa.rua || empresa.enderecoLinha1,
+    "addressLocality": empresa.cidade,
+    "addressRegion": empresa.estado,
+    "postalCode": empresa.cep,
+    "addressCountry": "BR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": empresa.latitude,
+    "longitude": empresa.longitude
+  },
+  "openingHoursSpecification": openingHoursSpec,
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": empresa.notaMedia.toString(),
+    "reviewCount": empresa.totalAvaliacoes.toString()
+  },
+  "priceRange": "$$"
+};
+---
+
+<!doctype html>
+<html lang={empresa.idioma} class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/fotos/logo.png" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${empresa.dominio}/fotos/hero-bancada.webp`} />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${empresa.dominio}/fotos/hero-bancada.webp`} />
+
+    <!-- Preload da Imagem Crítica Hero LCP -->
+    <link rel="preload" as="image" href="/fotos/hero-bancada.webp" type="image/webp" fetchpriority="high" />
+
+    <!-- Fontes otimizadas de alta performance com carregamento assíncrono (Zero bloqueio de renderização) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@700&display=swap"
+      />
+    </noscript>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  </head>
+  <body class="bg-surface font-body-md text-on-surface selection:bg-primary-container selection:text-on-primary-fixed min-h-screen flex flex-col antialiased">
+    <slot />
+
+    <!-- Micro-scripts essenciais client-side (<2KB) -->
+    <script define:vars={{ horariosData: horarios, fusoHorario: empresa.fusoHorario }}>
+      // 1. Mobile Drawer Toggle
+      const drawerBtn = document.getElementById('mobile-drawer-btn');
+      const drawer = document.getElementById('mobile-nav-drawer');
+      if (drawerBtn && drawer) {
+        drawerBtn.addEventListener('click', () => {
+          const isExpanded = drawerBtn.getAttribute('aria-expanded') === 'true';
+          drawerBtn.setAttribute('aria-expanded', String(!isExpanded));
+          drawer.classList.toggle('hidden');
+        });
+        drawer.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            drawer.classList.add('hidden');
+            drawerBtn.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      // 2. Cálculo do Status Operacional ("Aberto agora" / "Fechado")
+      function updateBusinessStatus() {
+        try {
+          const nowInTz = new Date(new Date().toLocaleString("en-US", { timeZone: fusoHorario }));
+          const currentDayOfWeek = nowInTz.getDay();
+          const currentMinutes = nowInTz.getHours() * 60 + nowInTz.getMinutes();
+
+          const todaySchedule = horariosData.find(h => h.diaSemana === currentDayOfWeek);
+
+          let isOpen = false;
+          let statusLabel = "";
+
+          if (todaySchedule && todaySchedule.aberto) {
+            const [openH, openM] = todaySchedule.abertura.split(':').map(Number);
+            const [closeH, closeM] = todaySchedule.fechamento.split(':').map(Number);
+            const openMinutes = openH * 60 + openM;
+            const closeMinutes = closeH * 60 + closeM;
+
+            if (currentMinutes >= openMinutes && currentMinutes < closeMinutes) {
+              isOpen = true;
+              statusLabel = `ABERTO AGORA · FECHA ÀS ${todaySchedule.fechamento}`;
+            }
+          }
+
+          if (!isOpen) {
+            let nextDayOffset = 1;
+            let nextSchedule = null;
+            while (nextDayOffset <= 7) {
+              const checkDay = (currentDayOfWeek + nextDayOffset) % 7;
+              const sched = horariosData.find(h => h.diaSemana === checkDay);
+              if (sched && sched.aberto) {
+                nextSchedule = sched;
+                break;
+              }
+              nextDayOffset++;
+            }
+
+            if (nextSchedule) {
+              const diaNome = nextDayOffset === 1 ? 'amanhã' : nextSchedule.dia.toLowerCase();
+              statusLabel = `FECHADO · ABRE ${diaNome} ÀS ${nextSchedule.abertura}`;
+            } else {
+              statusLabel = `FECHADO NO MOMENTO`;
+            }
+          }
+
+          document.querySelectorAll('[data-status-text]').forEach(el => {
+            el.textContent = statusLabel;
+          });
+
+          document.querySelectorAll('[data-status-ping]').forEach(el => {
+            if (isOpen) {
+              el.className = "w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]";
+            } else {
+              el.className = "w-2 h-2 rounded-full bg-amber-400";
+            }
+          });
+        } catch (e) {
+          console.error("Erro ao calcular status operacional:", e);
+        }
+      }
+
+      updateBusinessStatus();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import OperationalDock from '../components/OperationalDock.astro';
+import Hero from '../components/Hero.astro';
+import TrustMetrics from '../components/TrustMetrics.astro';
+import HazardStripe from '../components/HazardStripe.astro';
+import Services from '../components/Services.astro';
+import HowWeWork from '../components/HowWeWork.astro';
+import Reviews from '../components/Reviews.astro';
+import BookingForm from '../components/BookingForm.astro';
+import Faq from '../components/Faq.astro';
+import LocationMap from '../components/LocationMap.astro';
+import ComplianceBanner from '../components/ComplianceBanner.astro';
+import Footer from '../components/Footer.astro';
+import MobileStickyBar from '../components/MobileStickyBar.astro';
+---
+
+<Layout>
+  <!-- 1. Cabeçalho Fixo Superior -->
+  <Header />
+
+  <!-- Conteúdo Principal -->
+  <main class="w-full pt-20 bg-surface flex-1">
+    <!-- 2. Barra de Urgência Operacional -->
+    <OperationalDock />
+
+    <!-- 3. Capa / Hero Section -->
+    <Hero />
+
+    <!-- 4. Faixa de Confiança / Métricas Industriais -->
+    <TrustMetrics />
+
+    <!-- Transição com Faixa de Advertência -->
+    <HazardStripe />
+
+    <!-- 5. Seção de Serviços Técnicos -->
+    <Services />
+
+    <!-- Transição com Faixa de Advertência -->
+    <HazardStripe />
+
+    <!-- 6. Como Trabalhamos (3 Passos) -->
+    <HowWeWork />
+
+    <!-- Transição com Faixa de Advertência -->
+    <HazardStripe />
+
+    <!-- 7. Avaliações Auditadas Google Maps -->
+    <Reviews />
+
+    <!-- Transição com Faixa de Advertência -->
+    <HazardStripe />
+
+    <!-- 8. Agende seu Diagnóstico / Formulário WhatsApp -->
+    <BookingForm />
+
+    <!-- Transição com Faixa de Advertência -->
+    <HazardStripe />
+
+    <!-- 9. Base de Conhecimento / Perguntas Frequentes -->
+    <Faq />
+
+    <!-- Transição com Faixa de Advertência -->
+    <HazardStripe />
+
+    <!-- 10. Onde Estamos / Coordenadas e Mapa -->
+    <LocationMap />
+
+    <!-- 11. Rodapé Técnico de Conformidade & Dados Legais -->
+    <ComplianceBanner />
+  </main>
+
+  <!-- 12. Rodapé Institucional -->
+  <Footer />
+
+  <!-- 13. Barra de Ação Fixa Inferior no Celular -->
+  <MobileStickyBar />
+</Layout>

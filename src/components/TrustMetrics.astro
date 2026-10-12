@@ -1,0 +1,25 @@
+---
+import { TALLER_DATA } from '../data/taller';
+import Icon from './Icon.astro';
+
+const { metricasConfianca } = TALLER_DATA;
+---
+
+<section class="w-full bg-surface-container border-b-4 border-outline-variant">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x-2 divide-outline-variant">
+      {metricasConfianca.map((metrica) => (
+        <div class="p-6 lg:p-8 flex flex-col justify-between bg-surface-container hover:bg-surface-container-high transition-colors">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-label-code text-xs text-primary-container font-bold">[{metrica.codigo}]</span>
+            <Icon name={metrica.icone} class="w-6 h-6 text-primary-container" />
+          </div>
+          <div>
+            <h2 class="font-headline-sm text-headline-sm uppercase text-on-surface font-bold mb-1">{metrica.titulo}</h2>
+            <p class="font-body-sm text-body-sm text-secondary">{metrica.descricao}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

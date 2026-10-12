@@ -1,0 +1,10 @@
+---
+interface Props {
+  heightClass?: string;
+  class?: string;
+}
+
+const { heightClass = "h-3", class: className = "" } = Astro.props;
+---
+
+<div class={`w-full ${heightClass} hazard-stripe ${className}`} role="presentation"></div>

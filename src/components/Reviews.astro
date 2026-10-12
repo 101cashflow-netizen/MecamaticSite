@@ -1,0 +1,93 @@
+---
+import { TALLER_DATA } from '../data/taller';
+import Icon from './Icon.astro';
+
+const { empresa, avaliacoes } = TALLER_DATA;
+---
+
+<section class="w-full bg-[#F5F3EE] text-[#111315] py-20 px-4 sm:px-6 lg:px-8 border-b-4 border-[#111315]" id="avaliacoes">
+  <div class="max-w-7xl mx-auto space-y-12">
+    <!-- Cabeçalho -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-4 border-[#111315] pb-8">
+      <div class="flex items-center gap-4">
+        <span class="font-section-number text-section-number text-[#111315] leading-none select-none">03</span>
+        <div>
+          <span class="font-label-code text-xs uppercase bg-[#111315] text-[#FFC400] px-2 py-0.5 tracking-widest inline-block font-bold">
+            AUDITORIA LOCAL
+          </span>
+          <h2 class="font-headline-lg text-headline-lg uppercase font-black text-[#111315] tracking-tight mt-1">
+            AVALIAÇÕES REAIS NO GOOGLE MAPS
+          </h2>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4 bg-[#FFFFFF] p-3 border-2 border-[#111315] shadow-[4px_4px_0px_0px_#111315]">
+        <div class="font-headline-display text-4xl text-[#111315] font-black">
+          {empresa.notaMedia.toString().replace('.', ',')}
+        </div>
+        <div class="text-left">
+          <div class="flex text-[#FFC400] gap-0.5">
+            <Icon name="star" class="w-4 h-4" filled={true} />
+            <Icon name="star" class="w-4 h-4" filled={true} />
+            <Icon name="star" class="w-4 h-4" filled={true} />
+            <Icon name="star" class="w-4 h-4" filled={true} />
+            <Icon name="star" class="w-4 h-4" filled={true} />
+          </div>
+          <span class="font-label-code text-[11px] text-[#474744] block">
+            {empresa.totalAvaliacoes} avaliações auditadas
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grade com 3 Depoimentos -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {avaliacoes.map((item) => (
+        <div class="bg-[#FFFFFF] border-2 border-[#111315] p-6 flex flex-col justify-between shadow-[4px_4px_0px_0px_#111315]">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-[#111315]/15 pb-3">
+              <div class="flex text-[#FFC400] gap-0.5">
+                {Array.from({ length: item.nota }).map(() => (
+                  <Icon name="star" class="w-4 h-4" filled={true} />
+                ))}
+              </div>
+              <span class="font-label-code text-[10px] bg-[#111315] text-[#FFFFFF] px-1.5 py-0.5 uppercase font-bold">
+                Cliente Verificado
+              </span>
+            </div>
+            <p class="font-body-md text-body-md text-[#111315] italic leading-relaxed">
+              {item.texto}
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-[#111315]/20 mt-4 flex items-center gap-3">
+            <div class="w-10 h-10 bg-[#111315] text-[#FFC400] font-headline-sm flex items-center justify-center font-bold text-sm">
+              {item.iniciais}
+            </div>
+            <div>
+              <span class="font-headline-sm text-sm uppercase text-[#111315] font-bold block leading-none">
+                {item.autor}
+              </span>
+              <span class="font-label-code text-[11px] text-[#474744]">
+                {item.qualificacao}
+              </span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Botão de Ação Direta para Avaliações -->
+    <div class="text-center pt-4">
+      <a
+        class="inline-flex items-center gap-3 bg-[#111315] text-[#FFC400] font-label-action text-label-action uppercase px-8 py-4 border-2 border-[#111315] hover:bg-[#FFC400] hover:text-[#111315] transition-colors shadow-[4px_4px_0px_0px_#111315]"
+        href={empresa.googleReviewsUrl}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <span>VER TODAS AS {empresa.totalAvaliacoes} AVALIAÇÕES NO GOOGLE MAPS</span>
+        <Icon name="north_east" class="w-5 h-5" />
+      </a>
+    </div>
+  </div>
+</section>

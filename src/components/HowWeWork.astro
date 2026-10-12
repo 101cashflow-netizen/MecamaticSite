@@ -1,0 +1,46 @@
+---
+import { TALLER_DATA } from '../data/taller';
+import Icon from './Icon.astro';
+
+const { passos } = TALLER_DATA;
+---
+
+<section class="w-full bg-background py-20 px-4 sm:px-6 lg:px-8 border-b-4 border-outline-variant" id="como-trabalhamos">
+  <div class="max-w-7xl mx-auto space-y-12">
+    <!-- Cabeçalho -->
+    <div class="flex items-center gap-4 border-b-2 border-outline-variant pb-6">
+      <span class="font-section-number text-section-number text-[#8a7e6b] leading-none select-none">02</span>
+      <div>
+        <span class="font-label-code text-xs uppercase text-primary-container tracking-widest block font-bold">[FLUXOGRAMA MECÂNICO]</span>
+        <h2 class="font-headline-lg text-headline-lg uppercase font-bold text-on-surface">MÉTODO OPERACIONAL EM 3 PASSOS</h2>
+      </div>
+    </div>
+
+    <!-- 3 Passos Industriais em Caixas Robustas -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+      {passos.map((passo) => (
+        <div class="bg-surface-container border-2 border-outline-variant p-6 flex flex-col justify-between shadow-[4px_4px_0px_0px_#000000] relative">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="font-label-code text-xs bg-primary-container text-on-primary-fixed px-2 py-0.5 font-bold tracking-wider">
+                {passo.numero}
+              </span>
+              <span class="font-label-code text-xs text-secondary font-bold">{passo.tempo}</span>
+            </div>
+            <h3 class="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">
+              {passo.titulo}
+            </h3>
+            <p class="font-body-md text-body-md text-secondary leading-relaxed">
+              {passo.descricao}
+            </p>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-outline-variant flex items-center gap-2 font-label-code text-xs text-primary-container font-bold">
+            <Icon name={passo.icone} class="w-4 h-4" />
+            <span>{passo.tag}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

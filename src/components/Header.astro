@@ -1,0 +1,89 @@
+---
+import { TALLER_DATA } from '../data/taller';
+import Icon from './Icon.astro';
+
+const { empresa } = TALLER_DATA;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b-2 border-outline-variant">
+  <!-- Top hazard stripe accent -->
+  <div class="w-full h-1 hazard-stripe"></div>
+
+  <div class="h-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+    <!-- Brand / Logo -->
+    <a href="#" class="flex items-center gap-3 shrink-0 focus:outline-none focus:ring-2 focus:ring-primary-container">
+      <img alt="Guaruja Tec Logo" class="h-8 w-auto object-contain" src="/fotos/logo.png" width="32" height="32" />
+      <div class="flex flex-col">
+        <span class="font-headline-sm text-headline-sm uppercase tracking-wider text-on-surface leading-none">
+          {empresa.nome}<span class="text-primary-container">{empresa.sufixo}</span>
+        </span>
+        <span class="font-label-code text-[10px] uppercase text-primary-container tracking-widest">
+          {empresa.tagline}
+        </span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden xl:flex items-center gap-6 font-label-action text-label-action uppercase" aria-label="Navegação Principal">
+      <a class="text-on-surface-variant hover:text-on-surface transition-colors py-2" href="#servicos">Serviços</a>
+      <a class="text-on-surface-variant hover:text-on-surface transition-colors py-2" href="#como-trabalhamos">Como Trabalhamos</a>
+      <a class="text-on-surface-variant hover:text-on-surface transition-colors py-2" href="#avaliacoes">Avaliações</a>
+      <a class="text-on-surface-variant hover:text-on-surface transition-colors py-2" href="#onde-estamos">Onde Estamos</a>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+      <!-- Direct Call Button (Desktop) -->
+      <div class="hidden md:flex items-center gap-3 bg-surface-container-low px-3 py-1.5 border border-outline-variant">
+        <Icon name="call" class="w-5 h-5 text-primary-container" />
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_6px_#10b981]"></span>
+            <span class="font-label-code text-[11px] text-on-surface-variant uppercase">Atendimento Rápido</span>
+          </div>
+          <a class="font-label-code text-label-code text-on-surface hover:text-primary-container transition-colors" href={empresa.telefoneLink}>
+            {empresa.telefoneFormatado}
+          </a>
+        </div>
+      </div>
+
+      <!-- Primary CTA Button -->
+      <a
+        class="bg-primary-container text-on-primary-fixed font-label-action text-label-action uppercase px-4 sm:px-5 py-2.5 border-2 border-surface-container-lowest hover:bg-primary transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-[3px_3px_0px_0px_#000000] flex items-center gap-2"
+        href="#agendamento"
+      >
+        <span>AGENDAR HORÁRIO</span>
+        <Icon name="bolt" class="w-4 h-4 text-on-primary-fixed" />
+      </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button
+        id="mobile-drawer-btn"
+        class="xl:hidden w-10 h-10 flex items-center justify-center border border-outline-variant bg-surface-container text-on-surface hover:text-primary-container focus:outline-none"
+        aria-label="Abrir menu de navegação"
+        aria-expanded="false"
+      >
+        <Icon name="menu" class="w-5 h-5" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <nav id="mobile-nav-drawer" class="hidden xl:hidden bg-surface-container-lowest border-b-2 border-outline-variant px-4 py-4 space-y-2 font-label-action text-label-action uppercase">
+    <a class="block py-2.5 px-3 bg-surface-container border border-outline-variant text-on-surface hover:bg-primary-container hover:text-on-primary-fixed transition-colors" href="#servicos">
+      01 // Serviços Técnicos
+    </a>
+    <a class="block py-2.5 px-3 bg-surface-container border border-outline-variant text-on-surface hover:bg-primary-container hover:text-on-primary-fixed transition-colors" href="#como-trabalhamos">
+      02 // Como Trabalhamos
+    </a>
+    <a class="block py-2.5 px-3 bg-surface-container border border-outline-variant text-on-surface hover:bg-primary-container hover:text-on-primary-fixed transition-colors" href="#avaliacoes">
+      03 // Avaliações Google
+    </a>
+    <a class="block py-2.5 px-3 bg-surface-container border border-outline-variant text-on-surface hover:bg-primary-container hover:text-on-primary-fixed transition-colors" href="#agendamento">
+      04 // Agendar Avaliação
+    </a>
+    <a class="block py-2.5 px-3 bg-surface-container border border-outline-variant text-on-surface hover:bg-primary-container hover:text-on-primary-fixed transition-colors" href="#onde-estamos">
+      05 // Onde Estamos
+    </a>
+  </nav>
+</header>

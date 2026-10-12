@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileStickyBar from '../components/MobileStickyBar.astro';
+import { TALLER_DATA } from '../data/taller';
+
+const { empresa } = TALLER_DATA;
+---
+
+<Layout title={`Aviso Legal // ${empresa.nome}${empresa.sufixo}`} canonicalPath="/aviso-legal">
+  <Header />
+
+  <main class="w-full pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto flex-1">
+    <div class="border-2 border-primary-container bg-surface-container p-4 mb-8">
+      <span class="font-label-code text-xs uppercase text-primary-container font-bold block mb-1">
+        [DOCUMENTO PROVISÓRIO - SUJEITO A REVISÃO JURÍDICA LOCAL]
+      </span>
+      <p class="font-body-sm text-xs text-secondary">
+        Este documento contém as informações legais preliminares da {empresa.razaoSocial}. Os termos definitivos devem ser validados pelo departamento jurídico da empresa.
+      </p>
+    </div>
+
+    <div class="space-y-6 bg-surface-container-low border-2 border-outline-variant p-6 sm:p-8">
+      <h1 class="font-headline-lg text-headline-lg uppercase text-on-surface font-bold border-b-2 border-outline-variant pb-4">
+        Aviso Legal e Termos de Uso
+      </h1>
+
+      <div class="space-y-4 font-body-md text-secondary leading-relaxed">
+        <h2 class="font-headline-sm text-xl uppercase text-on-surface font-bold">1. Dados da Empresa</h2>
+        <p>
+          Em cumprimento às normas vigentes, informamos os dados cadastrais da empresa prestadora de serviços:
+        </p>
+        <ul class="list-disc pl-6 space-y-1 font-label-code text-xs text-on-surface">
+          <li><strong>Razão Social:</strong> {empresa.razaoSocial}</li>
+          <li><strong>CNPJ:</strong> {empresa.cnpj}</li>
+          <li><strong>Inscrição Municipal:</strong> {empresa.inscricaoMunicipal}</li>
+          <li><strong>Sede:</strong> {empresa.enderecoCompleto}</li>
+          <li><strong>Contato:</strong> {empresa.email} | {empresa.telefoneFormatado}</li>
+        </ul>
+
+        <h2 class="font-headline-sm text-xl uppercase text-on-surface font-bold pt-4">2. Objeto e Condições de Uso</h2>
+        <p>
+          Este website tem caráter puramente institucional e informativo, apresentando o portfólio de serviços de marketing digital, automações e consultoria local oferecidos pela {empresa.nome}{empresa.sufixo}.
+        </p>
+
+        <h2 class="font-headline-sm text-xl uppercase text-on-surface font-bold pt-4">3. Propostas e Orçamentos</h2>
+        <p>
+          Os valores e prazos indicados na tabela de serviços são referenciais ("a partir de") e dependem de diagnóstico técnico prévio para formalização de escopo e proposta comercial definitiva. Nenhuma transação financeira é processada diretamente através deste website.
+        </p>
+
+        <h2 class="font-headline-sm text-xl uppercase text-on-surface font-bold pt-4">4. Propriedade Intelectual</h2>
+        <p>
+          Todos os conteúdos, marcas, elementos visuais e códigos presentes neste site são de titularidade da {empresa.razaoSocial} ou licenciados para seu uso, sendo vedada a reprodução sem consentimento prévio.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+  <MobileStickyBar />
+</Layout>

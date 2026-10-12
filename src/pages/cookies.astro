@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileStickyBar from '../components/MobileStickyBar.astro';
+import { TALLER_DATA } from '../data/taller';
+
+const { empresa } = TALLER_DATA;
+---
+
+<Layout title={`Política de Cookies // ${empresa.nome}${empresa.sufixo}`} canonicalPath="/cookies">
+  <Header />
+
+  <main class="w-full pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto flex-1">
+    <div class="border-2 border-primary-container bg-surface-container p-4 mb-8">
+      <span class="font-label-code text-xs uppercase text-primary-container font-bold block mb-1">
+        [DOCUMENTO PROVISÓRIO - SUJEITO A REVISÃO JURÍDICA LOCAL]
+      </span>
+      <p class="font-body-sm text-xs text-secondary">
+        Declaração de uso de cookies e tecnologias de armazenamento local em conformidade com as diretrizes da LGPD e regulamentações internacionais de privacidade.
+      </p>
+    </div>
+
+    <div class="space-y-6 bg-surface-container-low border-2 border-outline-variant p-6 sm:p-8">
+      <h1 class="font-headline-lg text-headline-lg uppercase text-on-surface font-bold border-b-2 border-outline-variant pb-4">
+        Política de Cookies
+      </h1>
+
+      <div class="space-y-4 font-body-md text-secondary leading-relaxed">
+        <h2 class="font-headline-sm text-xl uppercase text-on-surface font-bold">1. O que são Cookies?</h2>
+        <p>
+          Cookies são pequenos arquivos de texto armazenados no navegador do usuário para registrar preferências e informações de navegação.
+        </p>
+
+        <h2 class="font-headline-sm text-xl uppercase text-on-surface font-bold pt-4">2. Uso de Cookies neste Website</h2>
+        <div class="bg-surface-container p-4 border border-outline-variant space-y-2">
+          <p class="font-bold text-primary-container font-label-code text-xs uppercase">
+            [DECLARAÇÃO DE ISENÇÃO DE COOKIES DE RASTREAMENTO]
+          </p>
+          <p class="text-on-surface text-sm">
+            Este website é uma aplicação estática ultraleve desenvolvida com foco total em privacidade e desempenho. <strong>NÃO utilizamos cookies de rastreamento, cookies publicitários, cookies de perfilamento ou ferramentas de analytics de terceiros.</strong>
+          </p>
+        </div>
+
+        <h2 class="font-headline-sm text-xl uppercase text-on-surface font-bold pt-4">3. Por que você não vê um banner de cookies irritante?</h2>
+        <p>
+          Como não coletamos dados para marketing nem rastreamos você pela internet, a legislação aplicável dispensa a exibição de banners intrusivos de consentimento de cookies. Sua navegação é limpa, rápida e privada por padrão.
+        </p>
+
+        <h2 class="font-headline-sm text-xl uppercase text-on-surface font-bold pt-4">4. Elementos Interativos Externos</h2>
+        <p>
+          Caso você opte voluntariamente por interagir com o mapa do Google Maps (clicando no botão para ativar o mapa interativo), o Google poderá aplicar seus próprios termos e cookies de serviço conforme suas políticas públicas de privacidade.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+  <MobileStickyBar />
+</Layout>
